@@ -43,4 +43,19 @@ def register(request):
         user_form = UserForm()
         profile_form = profile_form()
         return render(request, 'freelancer/registration.html', {'user_form':user_form, 'profile_form':profile_form, 'registered':registered})
-    
+
+def user_login(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active():
+                login(request, user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                return HttpResponse("Sorry, your account is inactive.")
+        else:
+            print("Invalid User Credentials Provided.. Please try again.")
+    else:
+        return render(request, 'freelancer/login.html', {})
