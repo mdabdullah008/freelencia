@@ -23,9 +23,9 @@ from freelancer import views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    re_path(r'freelancer', include('freelancer/urls')),
+    re_path(r'freelancer', include('freelancer.urls')),
 
-    re_path(r'customer', include('customer/urls')),
+    re_path(r'customer', include('customer.urls')),
 
     re_path(r'^$', views.index, name='index'),
     
