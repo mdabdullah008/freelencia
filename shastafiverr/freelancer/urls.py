@@ -1,5 +1,5 @@
 from freelancer import views
-from django_urls import re_path
+from django.urls import re_path
 app_name = 'freelancer'
 
 urlpatterns = [
@@ -7,3 +7,7 @@ urlpatterns = [
 
 	re_path(r'/user_login', views.user_login, name='user_login'),
 ]
+
+
+
+ 
