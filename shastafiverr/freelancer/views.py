@@ -41,7 +41,7 @@ def register(request):
             print(user_form.errors, profile_form.errors)
     else:
         user_form = UserForm()
-        profile_form = profile_form()
+        profile_form = UserProfileInfoForm()
         return render(request, 'freelancer/registration.html', {'user_form':user_form, 'profile_form':profile_form, 'registered':registered})
 
 def user_login(request):
