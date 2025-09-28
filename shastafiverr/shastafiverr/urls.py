@@ -18,4 +18,14 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    re_path(r'freelancer', include('freelancer/urls')),
+
+    re_path(r'customer', include('customer/urls')),
+
+    re_path(r'^$', views.index, name='index'),
+    
+    re_path(r'^special/', views.special, name='special'),
+    
+    re_path(r'^logout/$', views.user_logout, name='logout'),
 ]
