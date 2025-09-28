@@ -9,7 +9,7 @@
                 <ul class="nav navbar-nav">
                     <li><a class="navbar-brand" style="color: rgb(66, 250, 130);" href="{% url 'index' %}"><strong>ShastaaFiverr</strong></a></li>
                     
-                    <li><a class="navbar-brand" href="{% url 'admin:index' %}">Admin</a></li>
+                    <li><a class="navbar-brand"   href="{% url 'admin:index' %}">Admin</a></li>
                     {% if user.is_authenticated %}
                         <li><a class="navbar-brand" href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
