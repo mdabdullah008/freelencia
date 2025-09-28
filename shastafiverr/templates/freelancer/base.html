@@ -8,12 +8,13 @@
             <div class="container">
                 <ul class="nav navbar-nav">
                     <li><a class="navbar-brand" href="{% url 'index' %}">ShastaaFiverr</a></li>
-                    <li><a class="navbar-brand" href="{% url 'freelancer:register' %}">Register</a></li>
+                    
                     <li><a class="navbar-brand" href="{% url 'admin:index' %}">Admin</a></li>
                     {% if user.is_authenticated %}
                         <li><a class="navbar-brand" href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
                         <li><a class="navbar-brand" href="{% url 'freelancer:user_login' %}">Login</a></li>
+                        <li><a class="navbar-brand" href="{% url 'freelancer:register' %}">Register</a></li>
                     {% endif %}
                 </ul>
             </div >
