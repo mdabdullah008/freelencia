@@ -7,19 +7,25 @@
         <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container">
                 
-                    <div class="row" style="padding: 5px 0;">
-                        <ul class="nav navbar-nav">
-                        <li><a class="navbar-brand" style="color: rgb(66, 250, 130);" href="{% url 'index' %}"><strong>ShastaaFiverr</strong></a></li>
-                        <li><a class="navbar-brand"   href="{% url 'admin:index' %}">Admin</a></li>
+                      <div class="navbar-header">
+                            <a class="navbar-brand" style="color: rgb(66, 250, 130);" href="{% url 'index' %}">
+                                <strong>ShastaaFiverr</strong>
+                            </a>
+                            <a class="navbar-brand" href="{% url 'admin:index' %}">Admin</a>
+                       </div>
+
+                    <div class="row" style="display:flex; justify-content:flex-end; align-items:center;">
+                        
+                    
                         {% if user.is_authenticated %}
-                            <span class="navbar-text" style="color:white;">Signed in as {{ user.username }}</span>
-                            <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
+                            <span class="navbar-text" style="color:white; margin-right:10px;">Signed in as {{ user.username }}</span>
+                            <a class="btn btn-danger navbar-btn" href="{% url 'logout' %}" >Logout</a>
                         {% else %}
-                            <a class="navbar-brand" href="{% url 'freelancer:user_login' %}">Login</a>
-                            <a class="navbar-brand" href="{% url 'freelancer:register' %}">Register</a>
+                            <a class="btn btn-primary navbar-btn" href="{% url 'freelancer:user_login' %}">Login</a>
+                            <a class="btn btn-success navbar-btn" href="{% url 'freelancer:register' %}">Register</a>
                         
                         {% endif %}
-                    </ul>
+                        
                     </div>
                     
                     <div class="row" style="padding: 5px 0;">
