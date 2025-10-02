@@ -28,14 +28,28 @@
                         
                     </div>
                     
-                    <div class="row" style="padding: 5px 0;">
+                <div class="row" style="padding: 5px 0; display:flex; justify-content:space-between; align-items:center;">
                         <ul class="nav navbar-nav">
                             <li><a class="navbar-brand"  href="#">Programming and Tech</a></li>
                             <li><a class="navbar-brand"  href="#">Graphics and Design</a></li>
                             <li><a class="navbar-brand"  href="#">Video and Animation</a></li>
                             <li><a class="navbar-brand"  href="#">Business</a></li>
+                            
                         </ul>  
+                    
+                    <div class="row" style="display:flex; justify-content:flex-end; align-items:center;">
+                        
+                    
+                        {% if user.userprofileinfo.role == "freelancer" %}
+                            <a class="btn btn-primary navbar-btn" href="{% url 'freelancer:freelancer_dashboard' %}" >Dashboard</a>
+                        {% else %}
+                            <a class="btn btn-success navbar-btn" href="#">Become A Freelancer</a>
+                        
+                        {% endif %}
+                        
                     </div>
+                </div>
+                    
                       
                     
                     
