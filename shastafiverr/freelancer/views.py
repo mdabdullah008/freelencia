@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .decorators import freelancer_required, customer_required
 
 # Create your views here.
 
@@ -45,7 +44,8 @@ def register(request):
     else:
         user_form = UserForm()
         profile_form = UserProfileInfoForm()
-        return render(request, 'freelancer/registration.html', {'user_form':user_form, 'profile_form':profile_form, 'registered':registered})
+        
+    return render(request, 'freelancer/registration.html', {'user_form':user_form, 'profile_form':profile_form, 'registered':registered})
 
 def user_login(request):
     if request.method == "POST":
