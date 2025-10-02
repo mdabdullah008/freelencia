@@ -9,11 +9,7 @@ urlpatterns = [
 
 	re_path(r'user_login/', views.user_login, name='user_login'),
     
-    path('become-freelancer/', views.become_freelancer, name='become_freelancer'),
-    
-    path('dashboard/customer/', views.customer_dashboard, name='customer_dashboard'),
-    
-    path('dashboard/freelancer/', views.freelancer_dashboard, name='freelancer_dashboard'),
+    re_path(r'become-freelancer/', views.become_freelancer, name='become_freelancer'),
 ]
 
 

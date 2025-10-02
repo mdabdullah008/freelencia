@@ -70,11 +70,3 @@ def become_freelancer(request):
     profile.role = 'freelancer'
     profile.save()
     return redirect('freelancer_dashboard')
-
-@freelancer_required
-def freelancer_dashboard(request):
-    return HttpResponse("Welcome Freelancer!")
-
-@customer_required
-def customer_dashboard(request):
-    return HttpResponse("Welcome Customer!")

@@ -8,10 +8,10 @@ def role_required(required_role):
         def _wrapped_view(request, *args, **kwargs):
             if not request.user.is_authenticated:
                 return redirect('login')
-            if request.user.userprofileinfo.role !=required_role:
-                return HttpResponse("Access Denied. Only %s can see this page" % required_role)
-            return view_func(request, *args, **kwargs)
-        return decorator
+            if hasattr(request.user, 'userprofileinfo') and request.user.userprofileinfo.role == required_role:
+                return view_func(request, *args, **kwargs)
+            return HttpResponse("Access Denied. Only %s can see this page" % required_role)
+    return decorator
     
 freelancer_required = role_required('freelancer')
 customer_required = role_required('customer')
