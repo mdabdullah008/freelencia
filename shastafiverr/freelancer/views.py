@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .forms import UserForm, UserProfileInfoForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
@@ -31,6 +31,7 @@ def register(request):
 
             profile = profile_form.save(commit=False)
             profile.user = user
+            profile.role = 'customer'
             if 'profile_pic' in request.FILES:
                 print('Got it...')
                 profile.profile_pic = request.FILES['profile_pic']
@@ -43,7 +44,8 @@ def register(request):
     else:
         user_form = UserForm()
         profile_form = UserProfileInfoForm()
-        return render(request, 'freelancer/registration.html', {'user_form':user_form, 'profile_form':profile_form, 'registered':registered})
+        
+    return render(request, 'freelancer/registration.html', {'user_form':user_form, 'profile_form':profile_form, 'registered':registered})
 
 def user_login(request):
     if request.method == "POST":
@@ -60,3 +62,11 @@ def user_login(request):
             print("Invalid User Credentials Provided.. Please try again.")
     else:
         return render(request, 'freelancer/login.html', {})
+
+# Not tested or fixed yet.
+@login_required
+def become_freelancer(request):
+    profile = request.user.userprofileinfo
+    profile.role = 'freelancer'
+    profile.save()
+    return redirect('freelancer_dashboard')
