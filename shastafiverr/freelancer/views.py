@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from .decorators import freelancer_required, customer_required
 
 # Create your views here.
 
@@ -68,4 +69,12 @@ def become_freelancer(request):
     profile = request.user.userprofileinfo
     profile.role = 'freelancer'
     profile.save()
-    return redirect('freelancerdashboard')
+    return redirect('freelancer_dashboard')
+
+@freelancer_required
+def freelancer_dashboard(request):
+    return HttpResponse("Welcome Freelancer!")
+
+@customer_required
+def customer_dashboard(request):
+    return HttpResponse("Welcome Customer!")
