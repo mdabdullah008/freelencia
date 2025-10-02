@@ -8,8 +8,6 @@ urlpatterns = [
 	re_path(r'register/', views.register, name='register'),
 
 	re_path(r'user_login/', views.user_login, name='user_login'),
-
-	path('register/', views.register, name='register'),
     
     path('become-freelancer/', views.become_freelancer, name='become_freelancer'),
     
