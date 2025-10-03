@@ -38,22 +38,18 @@
                         </ul>  
                     
                     <div class="row" style="display:flex; justify-content:flex-end; align-items:center;">
-                        
-                    
-                        {% if user.userprofileinfo.role == "freelancer" %}
-                            <a class="btn btn-primary navbar-btn" href="{% url 'freelancer:freelancer_dashboard' %}" >Dashboard</a>
-                        {% else %}
-                            <a class="btn btn-success navbar-btn" href="#">Become A Freelancer</a>
-                        
+
+                        {% if user.is_authenticated %}
+                            {% if user.userprofileinfo.role == "freelancer" %}
+                                <a class="btn btn-primary navbar-btn" href="{% url 'freelancer:freelancer_dashboard' %}">Dashboard</a>
+                            {% elif user.userprofileinfo.role == "customer" %}
+                                <a class="btn btn-success navbar-btn" href="{% url 'freelancer:become_freelancer' %}">Become A Freelancer</a>
+                            {% endif %}
                         {% endif %}
-                        
+
                     </div>
                 </div>
-                    
-                      
-                    
-                    
-                
+
             </div >
         </nav>
         <div class="container">
