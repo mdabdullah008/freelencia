@@ -59,7 +59,9 @@ def user_login(request):
             else:
                 return HttpResponse("Sorry, your account is inactive.")
         else:
-            print("Invalid User Credentials Provided.. Please try again.")
+            return render(request, 'freelancer/login.html', {
+                'error': "Invalid username or password."
+            })
     else:
         return render(request, 'freelancer/login.html', {})
 
@@ -69,4 +71,8 @@ def become_freelancer(request):
     profile = request.user.userprofileinfo
     profile.role = 'freelancer'
     profile.save()
-    return redirect('freelancer_dashboard')
+    return redirect('freelancer:freelancer_dashboard')
+
+def freelancer_dashboard(request):
+    return render(request, 'freelancer/freelancer_dashboard.html')
+
