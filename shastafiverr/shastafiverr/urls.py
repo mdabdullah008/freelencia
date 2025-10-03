@@ -18,12 +18,12 @@ from django.urls import path
 
 
 from django.urls import re_path, include
-from freelancer import views
+from hub import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    re_path(r'freelancer', include('freelancer.urls')),
+    re_path(r'hub', include('hub.urls')),
 
     re_path(r'customer', include('customer.urls')),
 

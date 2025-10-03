@@ -1,4 +1,4 @@
-{% extends "freelancer/base.html" %}
+{% extends "hub/base.html" %}
 
 
 {% block body_block %}
@@ -7,7 +7,7 @@
     <div class="jumbotron">
         <h2>Welcome To <strong>ShastaaFiverr!</strong></h2>
         {% if user.is_authenticated %}
-            <h3>Assalamualaikum {{user.username}}! You are now a freelancer!</h3>
+            <h3>Assalamualaikum {{user.username}}!</h3>
             <br>
             <h3><strong>This Project is the joint creation of:</strong></h4>
             <h4>Areez Ahasan Rayat</h4>

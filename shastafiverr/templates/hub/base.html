@@ -21,8 +21,8 @@
                             <span class="navbar-text" style="color:white; margin-right:10px;">Signed in as {{ user.username }}</span>
                             <a class="btn btn-danger navbar-btn" href="{% url 'logout' %}" >Logout</a>
                         {% else %}
-                            <a class="btn btn-primary navbar-btn" href="{% url 'freelancer:user_login' %}">Login</a>
-                            <a class="btn btn-success navbar-btn" href="{% url 'freelancer:register' %}">Register</a>
+                            <a class="btn btn-primary navbar-btn" href="{% url 'hub:user_login' %}">Login</a>
+                            <a class="btn btn-success navbar-btn" href="{% url 'hub:register' %}">Register</a>
                         
                         {% endif %}
                         
@@ -41,9 +41,9 @@
 
                         {% if user.is_authenticated %}
                             {% if user.userprofileinfo.role == "freelancer" %}
-                                <a class="btn btn-primary navbar-btn" href="{% url 'freelancer:freelancer_dashboard' %}">Dashboard</a>
+                                <a class="btn btn-primary navbar-btn" href="{% url 'hub:freelancer_dashboard' %}">Dashboard</a>
                             {% elif user.userprofileinfo.role == "customer" %}
-                                <a class="btn btn-success navbar-btn" href="{% url 'freelancer:become_freelancer' %}">Become A Freelancer</a>
+                                <a class="btn btn-success navbar-btn" href="{% url 'hub:become_freelancer' %}">Become A Freelancer</a>
                             {% endif %}
                         {% endif %}
 

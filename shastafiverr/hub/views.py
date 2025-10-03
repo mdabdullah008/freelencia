@@ -8,7 +8,7 @@ from django.urls import reverse
 # Create your views here.
 
 def index(request):
-    return render(request, 'freelancer/index.html')
+    return render(request, 'hub/index.html')
 
 @login_required
 def special(request):
@@ -45,7 +45,7 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileInfoForm()
         
-    return render(request, 'freelancer/registration.html', {'user_form':user_form, 'profile_form':profile_form, 'registered':registered})
+    return render(request, 'hub/registration.html', {'user_form':user_form, 'profile_form':profile_form, 'registered':registered})
 
 def user_login(request):
     if request.method == "POST":
@@ -59,11 +59,11 @@ def user_login(request):
             else:
                 return HttpResponse("Sorry, your account is inactive.")
         else:
-            return render(request, 'freelancer/login.html', {
+            return render(request, 'hub/login.html', {
                 'error': "Invalid username or password."
             })
     else:
-        return render(request, 'freelancer/login.html', {})
+        return render(request, 'hub/login.html', {})
 
 # Not tested or fixed yet.
 @login_required
@@ -71,8 +71,8 @@ def become_freelancer(request):
     profile = request.user.userprofileinfo
     profile.role = 'freelancer'
     profile.save()
-    return redirect('freelancer:freelancer_dashboard')
+    return redirect('hub:freelancer_dashboard')
 
 def freelancer_dashboard(request):
-    return render(request, 'freelancer/freelancer_dashboard.html')
+    return render(request, 'hub/freelancer_dashboard.html')
 

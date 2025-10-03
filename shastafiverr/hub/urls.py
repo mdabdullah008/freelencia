@@ -1,8 +1,8 @@
-from freelancer import views
+from hub import views
 from django.urls import re_path
 from django.urls import path
 from . import views
-app_name = 'freelancer'
+app_name = 'hub'
 
 urlpatterns = [
 	re_path(r'/register/', views.register, name='register'),
