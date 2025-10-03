@@ -11,7 +11,7 @@ urlpatterns = [
     
     re_path(r'/become-freelancer/', views.become_freelancer, name='become_freelancer'),
     
-	path("/dashboard/", views.freelancer_dashboard, name="freelancer_dashboard"),
+	re_path(r'/dashboard/', views.freelancer_dashboard, name="freelancer_dashboard"),
 
 ]
 
