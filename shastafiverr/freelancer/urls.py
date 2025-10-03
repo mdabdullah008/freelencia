@@ -10,5 +10,8 @@ urlpatterns = [
 	re_path(r'/user_login/', views.user_login, name='user_login'),
     
     re_path(r'/become-freelancer/', views.become_freelancer, name='become_freelancer'),
+    
+	path("/dashboard/", views.freelancer_dashboard, name="freelancer_dashboard"),
+
 ]
 
