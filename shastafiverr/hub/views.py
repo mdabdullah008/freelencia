@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .forms import UserForm, UserProfileInfoForm
+from .forms import BecomeFreelancerForm, UserForm, UserProfileInfoForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -65,14 +65,24 @@ def user_login(request):
     else:
         return render(request, 'hub/login.html', {})
 
-# Not tested or fixed yet.
 @login_required
 def become_freelancer(request):
     profile = request.user.userprofileinfo
-    profile.role = 'freelancer'
-    profile.save()
-    return redirect('hub:freelancer_dashboard')
 
+    if request.method == 'POST':
+        form = BecomeFreelancerForm(request.POST, instance=profile)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.role = 'freelancer'
+            profile.save()
+            form.save_m2m()
+            return redirect('hub:freelancer_dashboard')
+    else:
+        form = BecomeFreelancerForm(instance=profile)
+
+    return render(request, 'hub/become_freelancer.html', {'form': form})
+
+@login_required
 def freelancer_dashboard(request):
     return render(request, 'hub/freelancer_dashboard.html')
 
