@@ -1,9 +1,10 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from .forms import BecomeFreelancerForm, UserForm, UserProfileInfoForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from .models import Job, UserProfileInfo
 
 # Create your views here.
 
@@ -84,5 +85,46 @@ def become_freelancer(request):
 
 @login_required
 def freelancer_dashboard(request):
-    return render(request, 'hub/freelancer_dashboard.html')
+    user = request.user
+    try:
+        profile = UserProfileInfo.objects.get(user=user)
+    except UserProfileInfo.DoesNotExist:
+        profile = None
+        
+    client_list = Job.objects.filter(freelancer=user).exclude(status='requested')
+    client_requests = Job.objects.filter(freelancer=user).exclude(status='requested')
+    
+    return render(request, 'hub/freelancer_dashboard.html', {
+                  'user' : user,
+                  'profile' : profile,
+                  'client_list' : client_list,
+                  'client_requests' : client_requests,
+                  })
 
+@login_required
+def finish_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id, freelancer=request.user)
+    job.status = 'done'
+    job.save()
+    return redirect('hub:freelancer_dashboard')
+
+@login_required
+def cancel_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id, freelancer=request.user)
+    job.status = 'cancelled'
+    job.save()
+    return redirect('hub:freelancer_dashboard')
+
+@login_required
+def accept_request(request, job_id):
+    job = get_object_or_404(Job, id=job_id, freelancer=request.user)
+    job.status = 'ongoing'
+    job.save()
+    return redirect('hub:freelancer_dashboard')
+
+@login_required
+def decline_request(request, job_id):
+    job = get_object_or_404(Job, id=job_id, freelancer=request.user)
+    job.status = 'cancelled'
+    job.save()
+    return redirect('hub:freelancer_dashboard')

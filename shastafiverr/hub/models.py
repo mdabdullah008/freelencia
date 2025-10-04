@@ -13,7 +13,7 @@ class UserProfileInfo(models.Model):
     profile_pic = models.ImageField(upload_to='profile_pics', blank=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='customer')
     name = models.TextField(blank=True, null=True)
-    categories = models.ManyToManyField('Category', blank=True)
+    category = models.ForeignKey('category', on_delete=models.SET_NULL, null=True, blank=True)
     bio = models.TextField(blank=True, null=True)
     skills = models.TextField(blank=True, null=True)
 

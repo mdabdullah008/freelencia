@@ -1,24 +1,80 @@
 {% extends "hub/base.html" %}
-
-
 {% block body_block %}
+<div class="container mt-4">
+    <h2 class="mb-3">Freelancer Dashboard</h2>
+    <hr>
 
-<div class="container">
-    <div class="jumbotron">
-        <h2>Welcome To <strong>ShastaaFiverr!</strong></h2>
-        {% if user.is_authenticated %}
-            <h3>Assalamualaikum {{user.username}}! You are now a freelancer!</h3>
-            <br>
-            <h3><strong>This Project is the joint creation of:</strong></h4>
-            <h4>Areez Ahasan Rayat</h4>
-            <h4>Mohammed Abdullah</h4>
-            <h4>Shah Amir Solaiman</h4>
-            <h4>Sumaiya Akter Suma</h4>
-
-        {% else %}
-            <h2>Please Login or Register in order to access this site.</h2>
-        {% endif %}
+    <div class="card p-3 mb-4 shadow-sm">
+        <div class="row">
+            <div class="col-md-2 text-center">
+                {% if user.userprofileinfo.profile_pic %}
+                    <img src="{{ user.userprofileinfo.profile_pic.url }}" class="img-fluid rounded-circle" alt="Profile Picture">
+                {% else %}
+                    <img src="https://via.placeholder.com/100" class="img-fluid rounded-circle" alt="Profile Picture">
+                {% endif %}
+            </div>
+            <div class="col-md-10">
+                <h4>{{ user.username }}</h4>
+                <p><strong>Name:</strong> {{ profile.name }}</p>
+                <p><strong>Category:</strong> {{ profile.category }}</p>
+                <p><strong>Skill:</strong> {{ profile.skills }}</p>
+                <p><strong>Bio:</strong> {{ profile.bio }}</p>
+            </div>
+        </div>
     </div>
-</div>
 
+    <h4>Client List</h4>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Client Username</th>
+                <th>Job Title</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in client_list %}
+            <tr>
+                <td>{{ job.client.username }}</td>
+                <td>{{ job.title }}</td>
+                <td>{{ job.status }}</td>
+                <td>
+                    <a href="{% url 'hub:finish_job' job.id %}" class="btn btn-success btn-sm">Finish</a>
+                    <a href="{% url 'hub:cancel_job' job.id %}" class="btn btn-danger btn-sm">Cancel</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="text-center">No clients yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h4>Client Requests</h4>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Client Username</th>
+                <th>Job Title</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in client_requests %}
+            <tr>
+                <td>{{ job.client.username }}</td>
+                <td>{{ job.title }}</td>
+                <td>
+                    <a href="{% url 'hub:accept_request' job.id %}" class="btn btn-success btn-sm">Accept</a>
+                    <a href="{% url 'hub:decline_request' job.id %}" class="btn btn-danger btn-sm">Decline</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="text-center">No client requests.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
