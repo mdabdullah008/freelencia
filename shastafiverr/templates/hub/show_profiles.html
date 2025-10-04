@@ -1,0 +1,15 @@
+<div class="container mt-4">
+    <div class="row">
+        {% for profile in profile %}
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="{{ profile.profile_pic.url }}" class="card-img-top" alt="Profile Picture">
+                <div class="card-body">
+                    <h5 class="card-title">{{ profile.name }}</h5>
+                    <p class="card-text">{{ profile.education }}</p>
+                    <p class="card-text"><small class="text-muted">{{ profile.email }}</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
