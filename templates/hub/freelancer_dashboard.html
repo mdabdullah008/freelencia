@@ -1,0 +1,24 @@
+{% extends "hub/base.html" %}
+
+
+{% block body_block %}
+
+<div class="container">
+    <div class="jumbotron">
+        <h2>Welcome To <strong>ShastaaFiverr!</strong></h2>
+        {% if user.is_authenticated %}
+            <h3>Assalamualaikum {{user.username}}! You are now a freelancer!</h3>
+            <br>
+            <h3><strong>This Project is the joint creation of:</strong></h4>
+            <h4>Areez Ahasan Rayat</h4>
+            <h4>Mohammed Abdullah</h4>
+            <h4>Shah Amir Solaiman</h4>
+            <h4>Sumaiya Akter Suma</h4>
+
+        {% else %}
+            <h2>Please Login or Register in order to access this site.</h2>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
