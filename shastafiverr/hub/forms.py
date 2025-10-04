@@ -26,5 +26,5 @@ class BecomeFreelancerForm(forms.ModelForm):
 
     class Meta:
         model = UserProfileInfo
-        fields = ['categories', 'bio', 'skills']
+        fields = ['name', 'categories', 'bio', 'skills']
 

@@ -12,6 +12,7 @@ class UserProfileInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to='profile_pics', blank=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='customer')
+    name = models.TextField(blank=True, null=True)
     categories = models.ManyToManyField('Category', blank=True)
     bio = models.TextField(blank=True, null=True)
     skills = models.TextField(blank=True, null=True)
