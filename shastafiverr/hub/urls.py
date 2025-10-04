@@ -23,6 +23,23 @@ urlpatterns = [
     re_path(r'/accept-request/<int:job_id>/', views.accept_request, name='accept_request'),
     
     re_path(r'/decline-request/<int:job_id>/', views.decline_request, name='decline_request'),
+    
+    #Registration Pages
+    re_path('register/programming/', views.register_programming, name='register_programming'),
+    
+    re_path('register/graphics/', views.register_graphics, name='register_graphics'),
+    
+    re_path('register/video/',views.register_video, name='register_video'),
+    
+    re_path('register/business/', views.register_business, name='register_business'),
 
+    #Show Profile Pages
+    re_path('register/programming/', views.show_programming, name='show_programming'),
+    
+    re_path('register/graphics/', views.show_graphics, name='show_graphics'),
+    
+    re_path('register/graphics/', views.show_video, name='show_video'),
+    
+    re_path('register/graphics/', views.show_business, name='show_business'),
 ]
 
