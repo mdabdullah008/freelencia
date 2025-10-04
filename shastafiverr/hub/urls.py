@@ -14,15 +14,15 @@ urlpatterns = [
     
 	re_path(r'/dashboard/', views.freelancer_dashboard, name="freelancer_dashboard"),
     
-    path('freelancer-dashboard/', views.freelancer_dashboard, name='freelancer_dashboard'),
+    re_path(r'/freelancer-dashboard/', views.freelancer_dashboard, name='freelancer_dashboard'),
     
-    path('finish-job/<int:job_id>/', views.finish_job, name='finish_job'),
+    re_path(r'/finish-job/<int:job_id>/', views.finish_job, name='finish_job'),
     
-    path('cancel-job/<int:job_id>/', views.cancel_job, name='cancel_job'),
+    re_path(r'/cancel-job/<int:job_id>/', views.cancel_job, name='cancel_job'),
     
-    path('accept-request/<int:job_id>/', views.accept_request, name='accept_request'),
+    re_path(r'/accept-request/<int:job_id>/', views.accept_request, name='accept_request'),
     
-    path('decline-request/<int:job_id>/', views.decline_request, name='decline_request'),
+    re_path(r'/decline-request/<int:job_id>/', views.decline_request, name='decline_request'),
 
 ]
 
