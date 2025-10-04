@@ -1,0 +1,13 @@
+<head>
+    <h2><strong>Become a Freelancer</strong></h2>
+</head>
+<body>
+    <div class="well well-lg">
+        <form method="post" style="margin: 0ch; box-sizing: border-box; border-color: gainsboro; background-color: rgb(255, 255, 255);">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" style="color: rgb(255, 255, 255); background-color: rgb(0, 81, 255); border-color: rgb(0, 81, 255);">Submit</button>
+        </form>
+    </div>
+    
+</body>
