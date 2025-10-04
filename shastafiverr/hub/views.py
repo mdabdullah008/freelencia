@@ -60,7 +60,7 @@ def user_login(request):
                 return HttpResponse("Sorry, your account is inactive.")
         else:
             return render(request, 'hub/login.html', {
-                'error': "Invalid username or password."
+                'error': "Invalid username or password, Please try again."
             })
     else:
         return render(request, 'hub/login.html', {})
