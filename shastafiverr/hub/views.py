@@ -131,66 +131,46 @@ def decline_request(request, job_id):
     job.save()
     return redirect('hub:freelancer_dashboard')
 
-#Register View
-def register_programming(request):
-    if request.method == "POST":
-        form = ProgrammingTechForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('show programming')
-        else:
-            form = ProgrammingTechForm()
-            return render (request, 'register.html',{'form': form})
-        
+
 #Show Profiles
 def show_programming(request):
     profiles = ProgrammingTech.objects.all()
     return render (request,'show_profiles.html', {'profiles': profiles})
 
-#Register View        
-def register_graphics(request):
-    if request.method == "POST":
-        form = GraphicsDesignForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('show graphics')
-        else:
-            form = GraphicsDesignForm()
-            return render (request, 'register.html',{'form': form})
-        
+
 #Show Profiles
 def show_graphics(request):
     profiles = GraphicsDesign.objects.all()
     return render (request,'show_profiles.html', {'profiles': profiles})
 
-#Register View                
-def register_video(request):
-    if request.method == "POST":
-        form = VideoAnimationForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('show video')
-        else:
-            form = VideoAnimationForm()
-            return render (request, 'register.html',{'form': form})
-        
+
 #Show Profiles
 def show_video(request):
     profiles = VideoAnimation.objects.all()
     return render (request,'show_profiles.html', {'profiles': profiles})
 
-#Register View                        
-def register_business(request):
-    if request.method == "POST":
-        form = BusinessForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('show business')
-        else:
-            form = BusinessForm()
-            return render (request, 'register.html',{'form': form})
-        
+
 #Show Profiles
 def show_business(request):
     profiles = Business.objects.all()
     return render (request,'show_profiles.html', {'profiles': profiles})
+
+def show_programming(request):
+    profiles = UserProfileInfo.objects.filter(category__name='Programming and Tech', role='freelancer')
+    return render(request, 'hub/show_table.html', {
+        'profiles': profiles,
+        'category_name': 'Programming and Tech'
+    })
+
+def show_graphics(request):
+    profiles = UserProfileInfo.objects.filter(category__name='Graphics')
+    return render(request, 'hub/show_table.html', {'profiles': profiles, 'category_name': 'Graphics and Design'})
+
+def show_video(request):
+    profiles = UserProfileInfo.objects.filter(category__name='Video')
+    return render(request, 'hub/show_table.html', {'profiles': profiles, 'category_name': 'Video and Animation'})
+
+def show_business(request):
+    profiles = UserProfileInfo.objects.filter(category__name='Business')
+    return render(request, 'hub/show_table.html', {'profiles': profiles, 'category_name': 'Business'})
+

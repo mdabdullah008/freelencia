@@ -25,13 +25,13 @@ urlpatterns = [
     re_path(r'/decline-request/<int:job_id>/', views.decline_request, name='decline_request'),
     
     #Registration Pages
-    re_path('register/programming/', views.register_programming, name='register_programming'),
+    re_path('/programming/', views.show_programming, name='cat_programming'),
     
-    re_path('register/graphics/', views.register_graphics, name='register_graphics'),
+    re_path('/graphics/', views.show_graphics, name='cat_graphics'),
     
-    re_path('register/video/',views.register_video, name='register_video'),
+    re_path('/video/',views.show_video, name='cat_video'),
     
-    re_path('register/business/', views.register_business, name='register_business'),
+    re_path('/business/', views.show_business, name='cat_business'),
 
     #Show Profile Pages
     re_path('register/programming/', views.show_programming, name='show_programming'),
