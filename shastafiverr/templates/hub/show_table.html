@@ -27,7 +27,7 @@
         <td>{{ profile.bio|truncatechars:60 }}</td>
         <td>{{ profile.skills }}</td>
         <td>
-          <a href="#" class="btn btn-sm btn-primary">View</a>
+          <a href="{% url 'hub:view_freelancer' profile.id %}" class="btn btn-sm btn-primary">View</a>
         </td>
       </tr>
       {% empty %}
