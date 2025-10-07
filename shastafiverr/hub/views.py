@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import BecomeFreelancerForm, UserForm, UserProfileInfoForm
 from django.contrib.auth import authenticate, login, logout
@@ -5,7 +6,6 @@ from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from .models import Job, UserProfileInfo
-from .forms import ProgrammingTechForm, GraphicsDesignForm, VideoAnimationForm, BusinessForm
 from .models import ProgrammingTech, GraphicsDesign, VideoAnimation, Business
 from django.core.mail import send_mail
 from django.conf import settings
@@ -122,6 +122,15 @@ def finish_job(request, request_id):
     client_request = get_object_or_404(ClientRequest, id=request_id, freelancer=request.user)
     client_request.status = 'finished'
     client_request.save()
+
+    send_mail(
+    subject="Your job has been marked as completed!",
+    message=f"Hello {client_request.client.username},\n\n"
+            f"{request.user.username} has marked your job as finished.\n\n"
+            f"Thank you for using ShastaFiverr!",
+    from_email=settings.DEFAULT_FROM_EMAIL,
+    recipient_list=[client_request.email],
+)
     
     return redirect('hub:freelancer_dashboard')
 
@@ -230,3 +239,32 @@ def hire_freelancer(request, freelancer_id):
         form = ClientRequestForm()
 
     return render(request, 'hub/hire_freelancer.html', {'form': form, 'freelancer': freelancer})
+
+@login_required
+def view_request(request, request_id):
+    
+    client_request = get_object_or_404(ClientRequest, id=request_id, freelancer=request.user)
+
+    return render(request, "hub/view_request.html", {
+        "request_obj": client_request
+    })
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.conf import settings
+from .models import UserProfileInfo, ClientRequest
+from .forms import ClientRequestForm
+
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import UserProfileInfo
+
+@login_required
+def view_freelancer(request, freelancer_id):
+    freelancer = get_object_or_404(UserProfileInfo, id=freelancer_id)
+
+    return render(request, "hub/view_freelancer.html", {
+        "freelancer": freelancer,
+        "category": category
+    })
