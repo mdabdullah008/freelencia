@@ -7,20 +7,28 @@ from django.urls import reverse
 from .models import Job, UserProfileInfo
 from .forms import ProgrammingTechForm, GraphicsDesignForm, VideoAnimationForm, BusinessForm
 from .models import ProgrammingTech, GraphicsDesign, VideoAnimation, Business
+from django.core.mail import send_mail
+from django.conf import settings
+from .models import ClientRequest, User
 
 # Create your views here.
 
 def index(request):
     return render(request, 'hub/index.html')
 
+
+
 @login_required
 def special(request):
     return HttpResponse("You are now logged in")
+
+
 
 @login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
 
 def register(request):
     registered = False
@@ -85,68 +93,140 @@ def become_freelancer(request):
 
     return render(request, 'hub/become_freelancer.html', {'form': form})
 
+
+
 @login_required
 def freelancer_dashboard(request):
-    user = request.user
-    try:
-        profile = UserProfileInfo.objects.get(user=user)
-    except UserProfileInfo.DoesNotExist:
-        profile = None
-        
-    client_list = Job.objects.filter(freelancer=user).exclude(status='requested')
-    client_requests = Job.objects.filter(freelancer=user).exclude(status='requested')
+    profile = request.user.userprofileinfo
+
+    # Accepted jobs → show in Client List
+    client_list = request.user.received_requests.filter(status='accepted')
     
-    return render(request, 'hub/freelancer_dashboard.html', {
-                  'user' : user,
-                  'profile' : profile,
-                  'client_list' : client_list,
-                  'client_requests' : client_requests,
-                  })
+    # Pending requests → show in Client Requests
+    client_requests = request.user.received_requests.filter(status='pending')
+
+    context = {
+        'profile': profile,
+        'client_list': client_list,
+        'client_requests': client_requests,
+        }
+    
+    return render(request, 'hub/freelancer_dashboard.html', context)
+
 
 @login_required
-def finish_job(request, job_id):
-    job = get_object_or_404(Job, id=job_id, freelancer=request.user)
-    job.status = 'done'
-    job.save()
+def finish_job(request, request_id):
+    
+    # Optional: mark job as finished (could add a 'finished' status)
+    
+    client_request = get_object_or_404(ClientRequest, id=request_id, freelancer=request.user)
+    client_request.status = 'finished'
+    client_request.save()
+    
     return redirect('hub:freelancer_dashboard')
 
-@login_required
-def cancel_job(request, job_id):
-    job = get_object_or_404(Job, id=job_id, freelancer=request.user)
-    job.status = 'cancelled'
-    job.save()
-    return redirect('hub:freelancer_dashboard')
 
 @login_required
-def accept_request(request, job_id):
-    job = get_object_or_404(Job, id=job_id, freelancer=request.user)
-    job.status = 'ongoing'
-    job.save()
+def cancel_job(request, request_id):
+    
+    client_request = get_object_or_404(ClientRequest, id=request_id, freelancer=request.user)
+    client_request.status = 'cancelled'
+    client_request.save()
+    
     return redirect('hub:freelancer_dashboard')
 
+
+
 @login_required
-def decline_request(request, job_id):
-    job = get_object_or_404(Job, id=job_id, freelancer=request.user)
-    job.status = 'cancelled'
-    job.save()
+def accept_request(request, request_id):
+    
+    client_request = get_object_or_404(ClientRequest, id=request_id, freelancer=request.user)
+    client_request.status = 'accepted'
+    client_request.save()
+
+    # Send email to client confirming acceptance
+    
+    send_mail(
+        subject="Your job request has been accepted!",
+        message=f"Hello {client_request.client.username},\n\n"
+                
+                f"{request.user.username} has accepted your request.\n\n"
+                
+                f"Job Details: {client_request.details}\n"
+                
+                f"Contact Email: {client_request.email}\n\n"
+                
+                f"Please communicate with the freelancer via email.",
+        
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[client_request.email],
+        )
+
     return redirect('hub:freelancer_dashboard')
+
+
+
+@login_required
+def decline_request(request, request_id):
+    
+    client_request = get_object_or_404(ClientRequest, id=request_id, freelancer=request.user)
+    client_request.status = 'cancelled'
+    client_request.save()
+    
+    return redirect('hub:freelancer_dashboard')
+
 
 def show_programming(request):
     profiles = UserProfileInfo.objects.filter(category__name='Programming and Tech', role='freelancer')
+    
     return render(request, 'hub/show_table.html', {
         'profiles': profiles,
         'category_name': 'Programming and Tech'
     })
 
+
 def show_graphics(request):
     profiles = UserProfileInfo.objects.filter(category__name='Graphics')
+    
     return render(request, 'hub/show_table.html', {'profiles': profiles, 'category_name': 'Graphics and Design'})
+
 
 def show_video(request):
     profiles = UserProfileInfo.objects.filter(category__name='Video')
+    
     return render(request, 'hub/show_table.html', {'profiles': profiles, 'category_name': 'Video and Animation'})
+
+
 
 def show_business(request):
     profiles = UserProfileInfo.objects.filter(category__name='Business')
     return render(request, 'hub/show_table.html', {'profiles': profiles, 'category_name': 'Business'})
 
+
+
+@login_required
+def hire_freelancer(request, freelancer_id):
+    from .forms import ClientRequestForm
+    freelancer = get_object_or_404(User, id=freelancer_id)
+
+    if request.method == "POST":
+        form = ClientRequestForm(request.POST)
+        if form.is_valid():
+            client_request = form.save(commit=False)
+            client_request.freelancer = freelancer
+            client_request.client = request.user
+            client_request.save()
+
+            # Send email notification to freelancer
+            send_mail(
+                subject=f"New Job Request from {request.user.username}",
+                message=f"Job Details: {client_request.details}\n"
+                        f"Contact Email: {client_request.email}",
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[freelancer.email],
+            )
+            return redirect('hub:freelancer_profile', freelancer_id=freelancer.id)
+    else:
+        form = ClientRequestForm()
+
+    return render(request, 'hub/hire_freelancer.html', {'form': form, 'freelancer': freelancer})
