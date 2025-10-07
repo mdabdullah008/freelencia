@@ -98,3 +98,21 @@ class Business(models.Model):
 
 def __str__(self):
     return self.name
+
+class ClientRequest(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('cancelled', 'Cancelled')
+    ]
+    
+    title = models.CharField(max_length=200)
+    freelancer = models.ForeignKey(User, related_name='received_requests', on_delete=models.CASCADE)
+    client = models.ForeignKey(User, related_name='sent_requests', on_delete=models.CASCADE)
+    email = models.EmailField()
+    details = models.TextField()
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Request from {self.client.username} to {self.freelancer.username} ({self.status})"
