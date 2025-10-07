@@ -131,30 +131,6 @@ def decline_request(request, job_id):
     job.save()
     return redirect('hub:freelancer_dashboard')
 
-
-#Show Profiles
-def show_programming(request):
-    profiles = ProgrammingTech.objects.all()
-    return render (request,'show_profiles.html', {'profiles': profiles})
-
-
-#Show Profiles
-def show_graphics(request):
-    profiles = GraphicsDesign.objects.all()
-    return render (request,'show_profiles.html', {'profiles': profiles})
-
-
-#Show Profiles
-def show_video(request):
-    profiles = VideoAnimation.objects.all()
-    return render (request,'show_profiles.html', {'profiles': profiles})
-
-
-#Show Profiles
-def show_business(request):
-    profiles = Business.objects.all()
-    return render (request,'show_profiles.html', {'profiles': profiles})
-
 def show_programming(request):
     profiles = UserProfileInfo.objects.filter(category__name='Programming and Tech', role='freelancer')
     return render(request, 'hub/show_table.html', {
