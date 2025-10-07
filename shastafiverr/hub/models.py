@@ -103,7 +103,8 @@ class ClientRequest(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('accepted', 'Accepted'),
-        ('cancelled', 'Cancelled')
+        ('cancelled', 'Cancelled'),
+        ('finished', 'Finished'),
     ]
     
     title = models.CharField(max_length=200)
