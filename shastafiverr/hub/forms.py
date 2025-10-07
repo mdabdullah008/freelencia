@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Category, UserProfileInfo
-from .models import ProgrammingTech, GraphicsDesign, VideoAnimation, Business
 from django import forms
 from .models import ClientRequest
 
