@@ -16,6 +16,8 @@ class UserProfileInfo(models.Model):
     category = models.ForeignKey('category', on_delete=models.SET_NULL, null=True, blank=True)
     bio = models.TextField(blank=True, null=True)
     skills = models.TextField(blank=True, null=True)
+    email = models.EmailField(max_length=256, blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
 

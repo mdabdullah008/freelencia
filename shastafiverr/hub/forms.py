@@ -18,15 +18,17 @@ class UserProfileInfoForm(forms.ModelForm):
         fields = ('profile_pic',)
 
 class BecomeFreelancerForm(forms.ModelForm):
-    categories = forms.ModelMultipleChoiceField(
-        queryset=Category.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=True
-    )
-
     class Meta:
         model = UserProfileInfo
-        fields = ['name', 'categories', 'bio', 'skills']
+        fields = ['name', 'category', 'bio', 'skills', 'email', 'phone']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'font-weight:600;'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control', 'style':'min-height:60px; max-height:100px; resize:none; font-weight:600;'}),
+            'skills': forms.Textarea(attrs={'class': 'form-control', 'style':'min-height:60px; max-height:100px; resize:none; font-weight:600;'}),
+            'email': forms.EmailInput(attrs={'class':'form-control', 'style':'font-weight:600;'}),
+            'phone': forms.TextInput(attrs={'class':'form-control', 'style':'font-weight:600;'}),
+            'category': forms.Select(attrs={'class':'form-select','style':'font-weight:600;'})       
+        }
 
 class ProgrammingTechForm(forms.ModelForm):
     class Meta:
