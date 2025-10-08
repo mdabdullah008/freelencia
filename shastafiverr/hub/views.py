@@ -2,11 +2,10 @@ from unicodedata import category
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import BecomeFreelancerForm, UserForm, UserProfileInfoForm
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .models import Job, UserProfileInfo
-from .models import ProgrammingTech, GraphicsDesign, VideoAnimation, Business
+from .models import UserProfileInfo
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import ClientRequest, User
