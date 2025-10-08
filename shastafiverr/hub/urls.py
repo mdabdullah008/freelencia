@@ -26,7 +26,6 @@ urlpatterns = [
     
     re_path(r'^freelancer/view/(?P<freelancer_id>\d+)/$', views.view_freelancer, name='view_freelancer'),
 
-    
     re_path(r'^freelancer/request/(?P<request_id>\d+)/$', views.view_request, name='view_request'),
     
     re_path(r'^freelancer/job/(?P<request_id>\d+)/finish/$', views.finish_job, name='finish_job'),
