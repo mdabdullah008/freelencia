@@ -1,22 +1,43 @@
 {% extends "hub/base.html" %}
 
 {% block body_block %}
-<div class="container-fluid py-5">
-  <div class="container-fluid py-5">
-    <h2 class="text-center mb-4 text-success fw-bold">Hire {{ freelancer.username }}</h2>
+<div class="container py-5">
+  <div class="container-fluid py-4"></div>
+    <div class="card shadow rounded-4 p-4 mx-auto" style="max-width: 600px;">
+        <h3 class="text-center text-success mb-4">Hire {{ freelancer.username }}</h3>
 
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
 
-        <div class="mb-3">
-      {{ form.as_p }}
-      </div>
+            <div class="mb-3">
+                {{ form.project_title.label_tag }}
+                {{ form.project_title }}
+                {% for error in form.project_title.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+            </div>
 
-      <div class="text-center">
-        <button type="submit" class="btn btn-success px-4 py-2 fw-semibold">Submit Request</button>
-      </div>
-    </form>
-  </div>
+            <div class="mb-3">
+                {{ form.details.label_tag }}
+                {{ form.details }}
+                {% for error in form.details.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {% for error in form.email.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success rounded-pill px-4">Send Request</button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}
-

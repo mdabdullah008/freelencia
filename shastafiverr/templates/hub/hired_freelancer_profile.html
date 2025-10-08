@@ -1,0 +1,66 @@
+{% extends "hub/base.html" %}
+
+{% block body_block %}
+<div class="container py-5">
+    <div class="container-fluid py-4"></div>
+  <div class="card shadow-lg border-0 rounded-4 p-4">
+    <div class="row align-items-center">
+      <div class="col-md-4 text-center">
+        <img src="{% if freelancer.userprofileinfo.profile_pic %}{{ freelancer.userprofileinfo.profile_pic.url }}{% else %}/static/default_profile.png{% endif %}" 
+        class="img-fluid rounded-circle border border-3 border-success mb-3" 
+        style="width: 180px; height: 180px; object-fit: cover;"
+        alt="Profile Picture">
+
+        <h4 class="fw-bold text-success">{{ freelancer.username }}</h4>
+        <p class="text-muted mb-2">{{ freelancer.first_name }} {{ freelancer.last_name }}</p>
+      </div>
+
+      <div class="col-md-8">
+        <h5 class="fw-bold text-success mb-3">Freelancer Information</h5>
+        <ul class="list-group mb-4">
+          <li class="list-group-item"><strong>Email:</strong> {{ freelancer.email }}</li>
+          <li class="list-group-item"><strong>Phone:</strong> {{ freelancer.userprofileinfo.phone }}</li>
+          <li class="list-group-item">
+        <p>
+        <strong>Category:</strong>
+        {% if profile and profile.category %}
+            <span>{{ profile.category.name }}</span>
+        {% else %}
+            <span class="text-muted">No category listed</span>
+        {% endif %}
+        </p>
+          </li>
+          <li class="list-group-item"><strong>Bio:</strong> {{ profile.bio|default:"No bio provided" }}</li>
+        </ul>
+        <h5 class="fw-bold text-success mt-4 mb-2">Project Details</h5>
+        <p><strong>Project Title:</strong> {{ hire.project_title }}</p>
+        <p><strong>Details / Steps:</strong></p>
+        <ul>
+        {% for line in hire.details.splitlines %}
+            <li>{{ line }}</li>
+        {% endfor %}
+        </ul>
+        <p><strong>Status:</strong> 
+        {% if hire.status %}
+            <span class="badge 
+            {% if hire.status == 'pending' %}bg-warning text-dark
+            {% elif hire.status == 'accepted' %}bg-success
+            {% elif hire.status == 'cancelled' %}bg-danger
+            {% elif hire.status == 'finished' %}bg-primary
+            {% else %}bg-secondary{% endif %}">
+            {{ hire.status }}
+            </span>
+        {% else %}
+            <span class="text-muted">Pending</span>
+        {% endif %}
+        </p>
+        <div class="mt-4 text-end">
+          <a href="{% url 'hub:hired_freelancers' %}" class="btn btn-outline-secondary rounded-pill px-4">
+            <i class="bi bi-arrow-left-circle"></i> Back to List
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

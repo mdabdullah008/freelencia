@@ -2,10 +2,10 @@ from unicodedata import category
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import BecomeFreelancerForm, UserForm, UserProfileInfoForm
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .models import UserProfileInfo, ClientRequest, User
+from .models import UserProfileInfo, ClientRequest, User, Hire
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -141,6 +141,15 @@ def cancel_job(request, request_id):
     client_request.status = 'cancelled'
     client_request.save()
     
+    send_mail(
+    subject="Your job has been cancelled!",
+    message=f"Hello {client_request.client.username},\n\n"
+            f"{request.user.username} has cancelled your job.\n\n"
+            f"Thank you for using ShastaFiverr!",
+    from_email=settings.DEFAULT_FROM_EMAIL,
+    recipient_list=[client_request.email],
+)
+    
     return redirect('hub:freelancer_dashboard')
 
 
@@ -180,6 +189,15 @@ def decline_request(request, request_id):
     client_request = get_object_or_404(ClientRequest, id=request_id, freelancer=request.user)
     client_request.status = 'cancelled'
     client_request.save()
+
+    send_mail(
+    subject="Your job has been declined.",
+    message=f"Hello {client_request.client.username},\n\n"
+            f"{request.user.username} has declined your job.\n\n"
+            f"Thank you for using ShastaFiverr!",
+    from_email=settings.DEFAULT_FROM_EMAIL,
+    recipient_list=[client_request.email],
+)
     
     return redirect('hub:freelancer_dashboard')
 
@@ -194,20 +212,20 @@ def show_programming(request):
 
 
 def show_graphics(request):
-    profiles = UserProfileInfo.objects.filter(category__name='Graphics')
+    profiles = UserProfileInfo.objects.filter(category__name='Graphics and Design', role='freelancer')
     
     return render(request, 'hub/show_table.html', {'profiles': profiles, 'category_name': 'Graphics and Design'})
 
 
 def show_video(request):
-    profiles = UserProfileInfo.objects.filter(category__name='Video')
+    profiles = UserProfileInfo.objects.filter(category__name='Video and Animation', role='freelancer')
     
     return render(request, 'hub/show_table.html', {'profiles': profiles, 'category_name': 'Video and Animation'})
 
 
 
 def show_business(request):
-    profiles = UserProfileInfo.objects.filter(category__name='Business')
+    profiles = UserProfileInfo.objects.filter(category__name='Business', role='freelancer')
     return render(request, 'hub/show_table.html', {'profiles': profiles, 'category_name': 'Business'})
 
 
@@ -233,7 +251,7 @@ def hire_freelancer(request, freelancer_id):
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[freelancer.email],
             )
-            return redirect('hub:freelancer_profile', freelancer_id=freelancer.id)
+            return redirect('hub:hired_freelancer_profile', freelancer_id=freelancer.id)
     else:
         form = ClientRequestForm()
 
@@ -255,4 +273,28 @@ def view_freelancer(request, freelancer_id):
     return render(request, "hub/view_freelancer.html", {
         "freelancer": freelancer,
         "category": category
+    })
+
+from .models import ClientRequest
+
+@login_required
+def hired_freelancers(request):
+    hires = ClientRequest.objects.filter(client=request.user)
+    return render(request, 'hub/hired_freelancers.html', {'hires': hires})
+
+@login_required
+def hired_freelancer_profile(request, freelancer_id):
+    client_request = ClientRequest.objects.filter(client=request.user, freelancer_id=freelancer_id).first()
+    if not client_request:
+        return HttpResponseForbidden("You did not hire this freelancer.")
+
+    freelancer = client_request.freelancer
+
+   
+    profile = getattr(freelancer, 'userprofileinfo', None)
+
+    return render(request, 'hub/hired_freelancer_profile.html', {
+        'freelancer': freelancer,
+        'hire': client_request, 
+        'profile': profile       
     })
