@@ -5,10 +5,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .models import UserProfileInfo
+from .models import UserProfileInfo, ClientRequest, User
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import ClientRequest, User
+
 
 # Create your views here.
 
@@ -247,17 +247,6 @@ def view_request(request, request_id):
     return render(request, "hub/view_request.html", {
         "request_obj": client_request
     })
-
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
-from django.conf import settings
-from .models import UserProfileInfo, ClientRequest
-from .forms import ClientRequestForm
-
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from .models import UserProfileInfo
 
 @login_required
 def view_freelancer(request, freelancer_id):
