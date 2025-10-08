@@ -44,7 +44,7 @@
             {% for job in client_list %}
             <tr>
                 <td>{{ job.client.username }}</td>
-                <td>{{ job.title }}</td>
+                <td>{{ job.project_title }}</td>
                 <td>{{ job.status }}</td>
                 <td>
                     <a href="{% url 'hub:finish_job' job.id %}" class="btn btn-success btn-sm">Finish</a>
@@ -72,7 +72,7 @@
             {% for job in client_requests %}
             <tr>
                 <td>{{ job.client.username }}</td>
-                <td>{{ job.title }}</td>
+                <td>{{ job.project_title }}</td>
                 <td>
                     <a href="{% url 'hub:accept_request' job.id %}" class="btn btn-success btn-sm">Accept</a>
                     <a href="{% url 'hub:decline_request' job.id %}" class="btn btn-danger btn-sm">Decline</a>
