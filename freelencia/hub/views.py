@@ -126,7 +126,7 @@ def finish_job(request, request_id):
     subject="Your job has been marked as completed!",
     message=f"Hello {client_request.client.username},\n\n"
             f"{request.user.username} has marked your job as finished.\n\n"
-            f"Thank you for using ShastaFiverr!",
+            f"Thank you for using Freelencia!",
     from_email=settings.DEFAULT_FROM_EMAIL,
     recipient_list=[client_request.email],
 )
@@ -145,7 +145,7 @@ def cancel_job(request, request_id):
     subject="Your job has been cancelled!",
     message=f"Hello {client_request.client.username},\n\n"
             f"{request.user.username} has cancelled your job.\n\n"
-            f"Thank you for using ShastaFiverr!",
+            f"Thank you for using Freelencia!",
     from_email=settings.DEFAULT_FROM_EMAIL,
     recipient_list=[client_request.email],
 )
@@ -194,7 +194,7 @@ def decline_request(request, request_id):
     subject="Your job has been declined.",
     message=f"Hello {client_request.client.username},\n\n"
             f"{request.user.username} has declined your job.\n\n"
-            f"Thank you for using ShastaFiverr!",
+            f"Thank you for using Freelencia!",
     from_email=settings.DEFAULT_FROM_EMAIL,
     recipient_list=[client_request.email],
 )
