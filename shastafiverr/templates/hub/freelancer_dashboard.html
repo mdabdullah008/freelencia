@@ -35,7 +35,7 @@
         <thead class="table-dark">
             <tr>
                 <th>Client Username</th>
-                <th>Job Title</th>
+                <th>Task Title</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -44,9 +44,10 @@
             {% for job in client_list %}
             <tr>
                 <td>{{ job.client.username }}</td>
-                <td>{{ job.project_title }}</td>
+                <td>{{ job.title }}</td>
                 <td>{{ job.status }}</td>
                 <td>
+                    <a href="{% url 'hub:view_hired_client' job.id %}" class="btn btn-primary btn-sm">View</a>
                     <a href="{% url 'hub:finish_job' job.id %}" class="btn btn-success btn-sm">Finish</a>
                     <a href="{% url 'hub:cancel_job' job.id %}" class="btn btn-danger btn-sm">Cancel</a>
                 </td>
@@ -64,7 +65,7 @@
         <thead class="table-dark">
             <tr>
                 <th>Client Username</th>
-                <th>Job Title</th>
+                <th>Task Title</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -72,9 +73,9 @@
             {% for job in client_requests %}
             <tr>
                 <td>{{ job.client.username }}</td>
-                <td>{{ job.project_title }}</td>
+                <td>{{ job.title }}</td>
                 <td>
-                    <a href="{% url 'hub:accept_request' job.id %}" class="btn btn-success btn-sm">Accept</a>
+                    <a href="{% url 'hub:view_client_request' job.id %}" class="btn btn-primary btn-sm">View</a>
                     <a href="{% url 'hub:decline_request' job.id %}" class="btn btn-danger btn-sm">Decline</a>
                 </td>
             </tr>

@@ -1,12 +1,14 @@
 {% extends "hub/base.html" %}
 {% block body_block %}
-<div class="container mt-4">
+<div class="container py-5">
+    <div class="container py-4"></div>
+<div class="container mt-4"></div>
     <h3>Client Request Details</h3>
     <hr>
 
     <p><strong>Client:</strong> {{ request_obj.client.username }}</p>
     <p><strong>Email:</strong> {{ request_obj.email }}</p>
-    <p><strong>Job Title:</strong> {{ request_obj.title }}</p>
+    <p><strong>Task Title:</strong> {{ request_obj.title }}</p>
     <p><strong>Details:</strong> {{ request_obj.details }}</p>
     <p><strong>Status:</strong> {{ request_obj.status }}</p>
 

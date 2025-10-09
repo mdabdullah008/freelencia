@@ -1,0 +1,17 @@
+{% extends "hub/base.html" %}
+{% block body_block %}
+<div class="container py-5">
+    <div class="container py-4"></div>
+  <h2 class="fw-bold text-info">{{ request_obj.title }}</h2>
+  <p class="mt-3"><strong>Client:</strong> {{ request_obj.client.username }}</p>
+  <p><strong>Details:</strong> {{ request_obj.details }}</p>
+  <p><strong>Email:</strong> {{ request_obj.email }}</p>
+  <p><strong>Status:</strong> <span class="badge bg-success">{{ request_obj.status }}</span></p>
+
+  <div class="mt-4">
+    <a href="{% url 'hub:finish_job' request_obj.id %}" class="btn btn-success">Finish</a>
+    <a href="{% url 'hub:cancel_job' request_obj.id %}" class="btn btn-danger">Cancel</a>
+    <a href="{% url 'hub:freelancer_dashboard' %}" class="btn btn-secondary">Back</a>
+  </div>
+</div>
+{% endblock %}

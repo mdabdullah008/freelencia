@@ -32,8 +32,8 @@
           </li>
           <li class="list-group-item"><strong>Bio:</strong> {{ profile.bio|default:"No bio provided" }}</li>
         </ul>
-        <h5 class="fw-bold text-success mt-4 mb-2">Project Details</h5>
-        <p><strong>Project Title:</strong> {{ hire.project_title }}</p>
+        <h5 class="fw-bold text-success mt-4 mb-2">Task Details</h5>
+        <p><strong>Task Title:</strong> {{ hire.title }}</p>
         <p><strong>Details / Steps:</strong></p>
         <ul>
         {% for line in hire.details.splitlines %}

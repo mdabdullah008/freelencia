@@ -39,4 +39,8 @@ urlpatterns = [
     re_path(r'^hired-freelancers/', views.hired_freelancers, name='hired_freelancers'),
     
     re_path(r'^hired-freelancer/(?P<freelancer_id>\d+)/$', views.hired_freelancer_profile, name='hired_freelancer_profile'),
+
+    re_path(r'^freelancer/request/(?P<request_id>\d+)/', views.view_client_request, name='view_client_request'),
+    
+    re_path(r'^freelancer/hired/(?P<request_id>\d+)/', views.view_hired_client, name='view_hired_client'),
 ]

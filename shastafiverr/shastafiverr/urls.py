@@ -25,7 +25,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    re_path(r'hub', include('hub.urls')),
+    re_path(r'hub/', include('hub.urls')),
 
     re_path(r'^$', views.index, name='index'),
     

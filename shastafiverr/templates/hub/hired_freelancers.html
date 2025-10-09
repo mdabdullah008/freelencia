@@ -12,7 +12,7 @@
           <thead class="table-success">
             <tr>
               <th>Freelancer</th>
-              <th>Project Title</th>
+              <th>Task Title</th>
               <th>Status</th>
               <th>Profile</th>
             </tr>
@@ -23,7 +23,7 @@
                 <td class="fw-semibold">
                   <i class="bi bi-person-circle text-success me-1"></i> {{ hire.freelancer.username }}
                 </td>
-                <td>{{ hire.project_title }}</td>
+                <td>{{ hire.title }}</td>
                 <td>
                   {% if hire.status == "Pending" %}
                     <span class="badge bg-warning text-dark">{{ hire.status }}</span>

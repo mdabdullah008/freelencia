@@ -11,9 +11,9 @@
             {{ form.non_field_errors }}
 
             <div class="mb-3">
-                {{ form.project_title.label_tag }}
-                {{ form.project_title }}
-                {% for error in form.project_title.errors %}
+                {{ form.title.label_tag }}
+                {{ form.title }}
+                {% for error in form.title.errors %}
                     <div class="text-danger small">{{ error }}</div>
                 {% endfor %}
             </div>

@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .models import UserProfileInfo, ClientRequest, User, Hire
+from .models import UserProfileInfo, ClientRequest, User
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -243,13 +243,14 @@ def hire_freelancer(request, freelancer_id):
             client_request.client = request.user
             client_request.save()
 
-            # Send email notification to freelancer
+            profile = UserProfileInfo.objects.get(user=freelancer)
             send_mail(
                 subject=f"New Job Request from {request.user.username}",
                 message=f"Job Details: {client_request.details}\n"
                         f"Contact Email: {client_request.email}",
                 from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[freelancer.email],
+                recipient_list=[profile.email],
+                
             )
             return redirect('hub:hired_freelancer_profile', freelancer_id=freelancer.id)
     else:
@@ -298,3 +299,16 @@ def hired_freelancer_profile(request, freelancer_id):
         'hire': client_request, 
         'profile': profile       
     })
+
+@login_required
+def view_client_request(request, request_id):
+
+    client_request = get_object_or_404(ClientRequest, id=request_id, freelancer=request.user)
+    return render(request, 'hub/view_client_request.html', {'request_obj': client_request})
+
+
+@login_required
+def view_hired_client(request, request_id):
+
+    client_request = get_object_or_404(ClientRequest, id=request_id, freelancer=request.user)
+    return render(request, 'hub/view_hired_client.html', {'request_obj': client_request})

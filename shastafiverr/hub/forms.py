@@ -35,9 +35,9 @@ class BecomeFreelancerForm(forms.ModelForm):
 class ClientRequestForm(forms.ModelForm):
     class Meta:
         model = ClientRequest
-        fields = ['project_title', 'email', 'details']
+        fields = ['title', 'email', 'details']
         widgets = {
-            'project_title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Project Title'}),
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Task Title'}),
             'details': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Describe what you need done', 'rows': 4, 'style':'resize: none;'}),
             'email': forms.EmailInput(attrs={'class':'form-control', 'placeholder': 'Your contact email'}),
         }
