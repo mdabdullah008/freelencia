@@ -1,0 +1,88 @@
+{% extends "hub/base.html" %}
+{% block body_block %}
+<div class="container mt-4">
+    <h2 class="mb-3">Freelancer Dashboard</h2>
+    <hr>
+
+    <div class="card p-3 mb-4 shadow-sm">
+        <div class="row">
+            <div class="col-md-2 text-center">
+                {% if user.userprofileinfo.profile_pic %}
+                    <img src="{{ user.userprofileinfo.profile_pic.url }}" class="img-fluid rounded-circle" alt="Profile Picture">
+                {% else %}
+                    <img src="https://via.placeholder.com/100" class="img-fluid rounded-circle" alt="Profile Picture">
+                {% endif %}
+            </div>
+            <div class="col-md-10">
+                <h4>{{ user.username }}</h4>
+                <p><strong>Name:</strong> {{ profile.name }}</p>
+                <p><strong>Category:</strong> {{ profile.category }}</p>
+                <p><strong>Skill:</strong> {{ profile.skills }}</p>
+                <p><strong>Bio:</strong> {{ profile.bio }}</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Email:</strong> {{ profile.email }}</p>
+                </div>
+                    <div class="col-md-6">
+                        <p><strong>Phone:</strong> {{ profile.phone }}</p>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <h4>Client List</h4>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Client Username</th>
+                <th>Task Title</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in client_list %}
+            <tr>
+                <td>{{ job.client.username }}</td>
+                <td>{{ job.title }}</td>
+                <td>{{ job.status }}</td>
+                <td>
+                    <a href="{% url 'hub:view_hired_client' job.id %}" class="btn btn-primary btn-sm">View</a>
+                    <a href="{% url 'hub:finish_job' job.id %}" class="btn btn-success btn-sm">Finish</a>
+                    <a href="{% url 'hub:cancel_job' job.id %}" class="btn btn-danger btn-sm">Cancel</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="text-center">No clients yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h4>Client Requests</h4>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Client Username</th>
+                <th>Task Title</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in client_requests %}
+            <tr>
+                <td>{{ job.client.username }}</td>
+                <td>{{ job.title }}</td>
+                <td>
+                    <a href="{% url 'hub:view_client_request' job.id %}" class="btn btn-primary btn-sm">View</a>
+                    <a href="{% url 'hub:decline_request' job.id %}" class="btn btn-danger btn-sm">Decline</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="text-center">No client requests.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

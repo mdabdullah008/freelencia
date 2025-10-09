@@ -1,0 +1,40 @@
+{% extends "hub/base.html" %}
+{% block body_block %}
+<div class="container-fluid py-5">
+  <div class="container-fluid py-5">
+    <div class="card shadow-sm p-4">
+        <div class="row">
+
+            <div class="col-md-3 text-center">
+                {% if freelancer.profile_pic %}
+                    <img src="{{ freelancer.profile_pic.url }}" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="width:150px; height:150px; object-fit:cover;">
+                {% else %}
+                    <img src="https://via.placeholder.com/150" alt="Profile Picture" class="img-fluid rounded-circle mb-3">
+                {% endif %}
+            </div>
+
+
+            <div class="col-md-9">
+                <h3>{{ freelancer.user.username }}</h3>
+                <p><strong>Name:</strong> {{ freelancer.name }}</p>
+                <p><strong>Category:</strong> {{ freelancer.category }}</p>
+                <p><strong>Skills:</strong> {{ freelancer.skills }}</p>
+                <p><strong>Bio:</strong> {{ freelancer.bio }}</p>
+                <p><strong>Email:</strong> {{ freelancer.email }}</p>
+                <p><strong>Phone:</strong> {{ freelancer.phone }}</p>
+
+
+                <div class="mt-3">
+                    <a href="{% url 'hub:hire_freelancer' freelancer.user.id %}" class="btn btn-success me-2">
+                        Hire {{ freelancer.user.username }}
+                    </a>
+
+                    <a href="{% if category == 'programming' %}{% url 'hub:cat_programming' %}{% elif category == 'graphics' %}{% url 'hub:cat_graphics' %}{% elif category == 'video' %}{% url 'hub:cat_video' %}{% elif category == 'business' %}{% url 'hub:cat_business' %}{% else %}{% url 'hub:cat_programming' %}{% endif %}" class="btn btn-secondary">
+                        Back
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
