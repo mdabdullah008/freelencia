@@ -123,9 +123,9 @@ def finish_job(request, request_id):
     client_request.save()
 
     send_mail(
-    subject="Your job has been marked as completed!",
+    subject="Your task has been marked as completed!",
     message=f"Hello {client_request.client.username},\n\n"
-            f"{request.user.username} has marked your job as finished.\n\n"
+            f"{request.user.username} has marked your task as finished.\n\n"
             f"Thank you for using Freelencia!",
     from_email=settings.DEFAULT_FROM_EMAIL,
     recipient_list=[client_request.email],
@@ -142,9 +142,9 @@ def cancel_job(request, request_id):
     client_request.save()
     
     send_mail(
-    subject="Your job has been cancelled!",
+    subject="Your task has been cancelled!",
     message=f"Hello {client_request.client.username},\n\n"
-            f"{request.user.username} has cancelled your job.\n\n"
+            f"{request.user.username} has cancelled your task.\n\n"
             f"Thank you for using Freelencia!",
     from_email=settings.DEFAULT_FROM_EMAIL,
     recipient_list=[client_request.email],
@@ -164,12 +164,12 @@ def accept_request(request, request_id):
     # Send email to client confirming acceptance
     
     send_mail(
-        subject="Your job request has been accepted!",
+        subject="Your task request has been accepted!",
         message=f"Hello {client_request.client.username},\n\n"
                 
                 f"{request.user.username} has accepted your request.\n\n"
                 
-                f"Job Details: {client_request.details}\n"
+                f"Task Details: {client_request.details}\n"
                 
                 f"Contact Email: {client_request.email}\n\n"
                 
@@ -191,9 +191,9 @@ def decline_request(request, request_id):
     client_request.save()
 
     send_mail(
-    subject="Your job has been declined.",
+    subject="Your task has been declined.",
     message=f"Hello {client_request.client.username},\n\n"
-            f"{request.user.username} has declined your job.\n\n"
+            f"{request.user.username} has declined your task.\n\n"
             f"Thank you for using Freelencia!",
     from_email=settings.DEFAULT_FROM_EMAIL,
     recipient_list=[client_request.email],
@@ -245,8 +245,8 @@ def hire_freelancer(request, freelancer_id):
 
             profile = UserProfileInfo.objects.get(user=freelancer)
             send_mail(
-                subject=f"New Job Request from {request.user.username}",
-                message=f"Job Details: {client_request.details}\n"
+                subject=f"New task Request from {request.user.username}",
+                message=f"Task Details: {client_request.details}\n"
                         f"Contact Email: {client_request.email}",
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[profile.email],
