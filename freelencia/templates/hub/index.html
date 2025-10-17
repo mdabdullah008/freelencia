@@ -5,15 +5,27 @@
 
 <div class="container-fluid py-5">
     <div class="container-fluid py-4">
-        <h2 class="display-5">Welcome To <strong>Freelencia!</strong></h2>
+        <h2 class="display-5" style="font: 1em Bodoni MT;font-size: xx-large;">Welcome To <strong>Freelencia!</strong></h2>
         {% if user.is_authenticated %}
-            <h3>Assalamualaikum {{user.username}}!</h3>
+            <h3 style="font: 1em Times New Roman;font-size: xx-large;">Hello, {{user.username}}!</h3>
             <br>
-            <h3><strong>This Project is the joint creation of:</strong></h4>
-            <h4>Areez Ahasan Rayat</h4>
-            <h4>Mohammed Abdullah</h4>
-            <h4>Shah Amir Solaiman</h4>
-            <h4>Sumaiya Akter Suma</h4>
+            <h4 style="font: 1em Times New Roman;font-size: xx-large;">
+                In an era where flexibility defines success, freelancing websites have become a digital marketplace connecting individuals with clients across the world with just a click. Freelancing platforms define how people work, earn and grow by fostering effective communication and collaboration between client and freelancer.
+            </h4>
+            <h4 style="font: 1em Times New Roman;font-size: xx-large;">
+                In this context, a vision for bridging talent and opportunity gave birth to a platform dedicated to connecting skilled freelancers to clients in need of their expertise. And so… <strong style="font: 1em Bodoni MT;font-size: xx-large;">Freelancia</strong> was born. It is built to connect passionate people who value skill, dedication and innovation to help turn ideas into successful collaborations. 
+            </h4>
+            <h4 style="font: 1em Times New Roman;font-size: xx-large;">Freelancia is an upcoming website developed as a course graduation project by NVIT Python-56 batch trainees:
+            </h4>
+            <h4 style="font: 1em Times New Roman;font-size: xx-large;">• Areez Ahasan Rayat</h4>
+            <h4 style="font: 1em Times New Roman;font-size: xx-large;">• Mohammed Abdullah</h4>
+            <h4 style="font: 1em Times New Roman;font-size: xx-large;">• Shah Amir Solaiman</h4>
+            <h4 style="font: 1em Times New Roman;font-size: xx-large;">• Sumaiya Akter Suma</h4>
+            <h4 style="font: 1em Times New Roman;font-size: xx-large;">
+                The project aspires to serve as a platform for clients seeking to hire freelancers for a variety of projects and similarly to provide freelancers with an easy way to be discovered by potential clients. Our goal is to make freelancing easier and more organized for everyone. 
+
+            </h4>
+        
 
         {% else %}
             <h2>Please Login or Register in order to access this site.</h2>
