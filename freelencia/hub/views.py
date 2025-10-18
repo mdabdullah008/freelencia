@@ -98,10 +98,10 @@ def become_freelancer(request):
 def freelancer_dashboard(request):
     profile = request.user.userprofileinfo
 
-    # Accepted jobs → show in Client List
+    
     client_list = request.user.received_requests.filter(status='accepted')
     
-    # Pending requests → show in Client Requests
+    
     client_requests = request.user.received_requests.filter(status='pending')
 
     context = {
@@ -116,7 +116,7 @@ def freelancer_dashboard(request):
 @login_required
 def finish_job(request, request_id):
     
-    # Optional: mark job as finished (could add a 'finished' status)
+    
     
     client_request = get_object_or_404(ClientRequest, id=request_id, freelancer=request.user)
     client_request.status = 'finished'
@@ -161,7 +161,7 @@ def accept_request(request, request_id):
     client_request.status = 'accepted'
     client_request.save()
 
-    # Send email to client confirming acceptance
+
     
     send_mail(
         subject="Your task request has been accepted!",
