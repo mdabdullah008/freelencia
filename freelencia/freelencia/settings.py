@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-evv&7z#@f7b%w@85s^2xuju1^mkx6%2gmlj$*f8812#yk95&kw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['nvit-project.onrender.com']
+ALLOWED_HOSTS = ['freelencia.onrender.com']
 
 
 # Application definition
