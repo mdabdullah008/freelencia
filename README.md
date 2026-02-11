@@ -1,4 +1,4 @@
-# 🌐 Freelencia
+# Freelencia
 ## A simple platform to connect freelancers and clients.
 
 <img width="1899" height="280" alt="image" src="https://github.com/user-attachments/assets/0b9577cf-17de-4d23-be3f-c014cd9b118c" />
