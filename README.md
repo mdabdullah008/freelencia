@@ -33,7 +33,7 @@
 
 - Manage projects and tasks easily
 
-# ⚙️ Built With
+## ⚙️ Built With
 - Python & Django – Backend logic
 
 - HTML, CSS & Bootstrap – Frontend design
