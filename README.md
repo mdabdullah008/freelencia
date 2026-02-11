@@ -1,4 +1,4 @@
-# <img width="320" height="53" alt="rsz_freelencia_logo-removebg-preview_1" src="https://github.com/user-attachments/assets/2d84ec13-9eb7-41fa-be2d-91c68a78e63d" />
+<img width="320" height="53" alt="rsz_freelencia_logo-removebg-preview_1" src="https://github.com/user-attachments/assets/2d84ec13-9eb7-41fa-be2d-91c68a78e63d" />
 
 ## A simple platform to connect freelancers and clients.
 
