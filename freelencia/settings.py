@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-evv&7z#@f7b%w@85s^2xuju1^mkx6%2gmlj$*f8812#yk95&kw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['freelencia.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -134,7 +134,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'freelancingautomation@gmail.com'
-EMAIL_HOST_PASSWORD = 'hmsyfexgquxxxzwt'
+EMAIL_HOST_USER = 'email@gmail.com'
+EMAIL_HOST_PASSWORD = 'password'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
